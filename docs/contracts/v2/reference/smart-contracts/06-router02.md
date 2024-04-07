@@ -23,13 +23,13 @@ function factory() external pure returns (address);
 
 Returns [factory address](../smart-contracts/factory#address).
 
-## WETH
+## WSTEAMX
 
 ```solidity
-function WETH() external pure returns (address);
+function WSTEAMX() external pure returns (address);
 ```
 
-Returns the [canonical WETH address](https://blog.0xproject.com/canonical-weth-a9aa7d0279dd) on the Ethereum [mainnet](https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2), or the [Ropsten](https://ropsten.etherscan.io/address/0xc778417e063141139fce010982780140aa0cd5ab), [Rinkeby](https://rinkeby.etherscan.io/address/0xc778417e063141139fce010982780140aa0cd5ab), [Görli](https://goerli.etherscan.io/address/0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6), or [Kovan](https://kovan.etherscan.io/address/0xd0a1e359811322d97991e03f863a0c30c2cf029c) testnets.
+Returns the [canonical WSTEAMX address](https://blog.0xproject.com/canonical-weth-a9aa7d0279dd) on the Ethereum [mainnet](https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2), or the [Ropsten](https://ropsten.etherscan.io/address/0xc778417e063141139fce010982780140aa0cd5ab), [Rinkeby](https://rinkeby.etherscan.io/address/0xc778417e063141139fce010982780140aa0cd5ab), [Görli](https://goerli.etherscan.io/address/0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6), or [Kovan](https://kovan.etherscan.io/address/0xd0a1e359811322d97991e03f863a0c30c2cf029c) testnets.
 
 ## quote
 
@@ -110,26 +110,26 @@ function addLiquidityETH(
 ) external payable returns (uint amountToken, uint amountETH, uint liquidity);
 ```
 
-Adds liquidity to an ERC-20⇄WETH pool with ETH.
+Adds liquidity to an ERC-20⇄WSTEAMX pool with STEAMX.
 
 - To cover all possible scenarios, `msg.sender` should have already given the router an allowance of at least amountTokenDesired on token.
 - Always adds assets at the ideal ratio, according to the price when the transaction is executed.
 - `msg.value` is treated as a amountETHDesired.
-- Leftover ETH, if any, is returned to `msg.sender`.
-- If a pool for the passed token and WETH does not exists, one is created automatically, and exactly amountTokenDesired/`msg.value` tokens are added.
+- Leftover STEAMX, if any, is returned to `msg.sender`.
+- If a pool for the passed token and WSTEAMX does not exists, one is created automatically, and exactly amountTokenDesired/`msg.value` tokens are added.
 
 | Name                           | Type      |                                                                                                                           |
 | :----------------------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------ |
 | token                          | `address` | A pool token.                                                                                                             |
-| amountTokenDesired             | `uint`    | The amount of token to add as liquidity if the WETH/token price is <= `msg.value`/amountTokenDesired (token depreciates). |
-| `msg.value` (amountETHDesired) | `uint`    | The amount of ETH to add as liquidity if the token/WETH price is <= amountTokenDesired/`msg.value` (WETH depreciates).    |
-| amountTokenMin                 | `uint`    | Bounds the extent to which the WETH/token price can go up before the transaction reverts. Must be <= amountTokenDesired.  |
-| amountETHMin                   | `uint`    | Bounds the extent to which the token/WETH price can go up before the transaction reverts. Must be <= `msg.value`.         |
+| amountTokenDesired             | `uint`    | The amount of token to add as liquidity if the WSTEAMX/token price is <= `msg.value`/amountTokenDesired (token depreciates). |
+| `msg.value` (amountETHDesired) | `uint`    | The amount of STEAMX to add as liquidity if the token/WSTEAMX price is <= amountTokenDesired/`msg.value` (WSTEAMX depreciates).    |
+| amountTokenMin                 | `uint`    | Bounds the extent to which the WSTEAMX/token price can go up before the transaction reverts. Must be <= amountTokenDesired.  |
+| amountETHMin                   | `uint`    | Bounds the extent to which the token/WSTEAMX price can go up before the transaction reverts. Must be <= `msg.value`.         |
 | to                             | `address` | Recipient of the liquidity tokens.                                                                                        |
 | deadline                       | `uint`    | Unix timestamp after which the transaction will revert.                                                                   |
 |                                |           |                                                                                                                           |
 | amountToken                    | `uint`    | The amount of token sent to the pool.                                                                                     |
-| amountETH                      | `uint`    | The amount of ETH converted to WETH and sent to the pool.                                                                 |
+| amountETH                      | `uint`    | The amount of STEAMX converted to WSTEAMX and sent to the pool.                                                                 |
 | liquidity                      | `uint`    | The amount of liquidity tokens minted.                                                                                    |
 
 ## removeLiquidity
@@ -176,7 +176,7 @@ function removeLiquidityETH(
 ) external returns (uint amountToken, uint amountETH);
 ```
 
-Removes liquidity from an ERC-20⇄WETH pool and receive ETH.
+Removes liquidity from an ERC-20⇄WSTEAMX pool and receive STEAMX.
 
 - `msg.sender` should have already given the router an allowance of at least liquidity on the pool.
 
@@ -185,12 +185,12 @@ Removes liquidity from an ERC-20⇄WETH pool and receive ETH.
 | token          | `address` | A pool token.                                                                        |
 | liquidity      | `uint`    | The amount of liquidity tokens to remove.                                            |
 | amountTokenMin | `uint`    | The minimum amount of token that must be received for the transaction not to revert. |
-| amountETHMin   | `uint`    | The minimum amount of ETH that must be received for the transaction not to revert.   |
+| amountETHMin   | `uint`    | The minimum amount of STEAMX that must be received for the transaction not to revert.   |
 | to             | `address` | Recipient of the underlying assets.                                                  |
 | deadline       | `uint`    | Unix timestamp after which the transaction will revert.                              |
 |                |           |                                                                                      |
 | amountToken    | `uint`    | The amount of token received.                                                        |
-| amountETH      | `uint`    | The amount of ETH received.                                                          |
+| amountETH      | `uint`    | The amount of STEAMX received.                                                          |
 
 ## removeLiquidityWithPermit
 
@@ -240,14 +240,14 @@ function removeLiquidityETHWithPermit(
 ) external returns (uint amountToken, uint amountETH);
 ```
 
-Removes liquidity from an ERC-20⇄WETTH pool and receive ETH without pre-approval, thanks to [permit](pair-erc-20#permit).
+Removes liquidity from an ERC-20⇄WSTEAMX pool and receive STEAMX without pre-approval, thanks to [permit](pair-erc-20#permit).
 
 | Name           | Type      |                                                                                      |
 | :------------- | :-------- | :----------------------------------------------------------------------------------- |
 | token          | `address` | A pool token.                                                                        |
 | liquidity      | `uint`    | The amount of liquidity tokens to remove.                                            |
 | amountTokenMin | `uint`    | The minimum amount of token that must be received for the transaction not to revert. |
-| amountETHMin   | `uint`    | The minimum amount of ETH that must be received for the transaction not to revert.   |
+| amountETHMin   | `uint`    | The minimum amount of STEAMX that must be received for the transaction not to revert.   |
 | to             | `address` | Recipient of the underlying assets.                                                  |
 | deadline       | `uint`    | Unix timestamp after which the transaction will revert.                              |
 | approveMax     | `bool`    | Whether or not the approval amount in the signature is for liquidity or `uint(-1)`.  |
@@ -256,7 +256,7 @@ Removes liquidity from an ERC-20⇄WETTH pool and receive ETH without pre-approv
 | s              | `bytes32` | The s component of the permit signature.                                             |
 |                |           |                                                                                      |
 | amountToken    | `uint`    | The amount of token received.                                                        |
-| amountETH      | `uint`    | The amount of ETH received.                                                          |
+| amountETH      | `uint`    | The amount of STEAMX received.                                                          |
 
 ## removeLiquidityETHSupportingFeeOnTransferTokens
 
@@ -280,11 +280,11 @@ Identical to [removeLiquidityETH](#removeliquidityeth), but succeeds for tokens 
 | token          | `address` | A pool token.                                                                        |
 | liquidity      | `uint`    | The amount of liquidity tokens to remove.                                            |
 | amountTokenMin | `uint`    | The minimum amount of token that must be received for the transaction not to revert. |
-| amountETHMin   | `uint`    | The minimum amount of ETH that must be received for the transaction not to revert.   |
+| amountETHMin   | `uint`    | The minimum amount of STEAMX that must be received for the transaction not to revert.   |
 | to             | `address` | Recipient of the underlying assets.                                                  |
 | deadline       | `uint`    | Unix timestamp after which the transaction will revert.                              |
 |                |           |                                                                                      |
-| amountETH      | `uint`    | The amount of ETH received.                                                          |
+| amountETH      | `uint`    | The amount of STEAMX received.                                                          |
 
 ## removeLiquidityETHWithPermitSupportingFeeOnTransferTokens
 
@@ -307,7 +307,7 @@ Identical to [removeLiquidityETHWithPermit](#removeliquidityethwithpermit), but 
 | token          | `address` | A pool token.                                                                        |
 | liquidity      | `uint`    | The amount of liquidity tokens to remove.                                            |
 | amountTokenMin | `uint`    | The minimum amount of token that must be received for the transaction not to revert. |
-| amountETHMin   | `uint`    | The minimum amount of ETH that must be received for the transaction not to revert.   |
+| amountETHMin   | `uint`    | The minimum amount of STEAMX that must be received for the transaction not to revert.   |
 | to             | `address` | Recipient of the underlying assets.                                                  |
 | deadline       | `uint`    | Unix timestamp after which the transaction will revert.                              |
 | approveMax     | `bool`    | Whether or not the approval amount in the signature is for liquidity or `uint(-1)`.  |
@@ -315,7 +315,7 @@ Identical to [removeLiquidityETHWithPermit](#removeliquidityethwithpermit), but 
 | r              | `bytes32` | The r component of the permit signature.                                             |
 | s              | `bytes32` | The s component of the permit signature.                                             |
 |                |           |                                                                                      |
-| amountETH      | `uint`    | The amount of ETH received.                                                          |
+| amountETH      | `uint`    | The amount of STEAMX received.                                                          |
 
 ## swapExactTokensForTokens
 
@@ -378,11 +378,11 @@ function swapExactETHForTokens(uint amountOutMin, address[] calldata path, addre
   returns (uint[] memory amounts);
 ```
 
-Swaps an exact amount of ETH for as many output tokens as possible, along the route determined by the path. The first element of path must be [WETH](#weth), the last is the output token, and any intermediate elements represent intermediate pairs to trade through (if, for example, a direct pair does not exist).
+Swaps an exact amount of STEAMX for as many output tokens as possible, along the route determined by the path. The first element of path must be [WSTEAMX](#weth), the last is the output token, and any intermediate elements represent intermediate pairs to trade through (if, for example, a direct pair does not exist).
 
 | Name                   | Type                 |                                                                                                                                      |
 | :--------------------- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
-| `msg.value` (amountIn) | `uint`               | The amount of ETH to send.                                                                                                           |
+| `msg.value` (amountIn) | `uint`               | The amount of STEAMX to send.                                                                                                           |
 | amountOutMin           | `uint`               | The minimum amount of output tokens that must be received for the transaction not to revert.                                         |
 | path                   | `address[] calldata` | An array of token addresses. `path.length` must be >= 2. Pools for each consecutive pair of addresses must exist and have liquidity. |
 | to                     | `address`            | Recipient of the output tokens.                                                                                                      |
@@ -398,17 +398,17 @@ function swapTokensForExactETH(uint amountOut, uint amountInMax, address[] calld
   returns (uint[] memory amounts);
 ```
 
-Receive an exact amount of ETH for as few input tokens as possible, along the route determined by the path. The first element of path is the input token, the last must be [WETH](#weth), and any intermediate elements represent intermediate pairs to trade through (if, for example, a direct pair does not exist).
+Receive an exact amount of STEAMX for as few input tokens as possible, along the route determined by the path. The first element of path is the input token, the last must be [WSTEAMX](#weth), and any intermediate elements represent intermediate pairs to trade through (if, for example, a direct pair does not exist).
 
 - `msg.sender` should have already given the router an allowance of at least amountInMax on the input token.
-- If the to address is a smart contract, it must have the ability to receive ETH.
+- If the to address is a smart contract, it must have the ability to receive STEAMX.
 
 | Name        | Type                 |                                                                                                                                      |
 | :---------- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
-| amountOut   | `uint`               | The amount of ETH to receive.                                                                                                        |
+| amountOut   | `uint`               | The amount of STEAMX to receive.                                                                                                        |
 | amountInMax | `uint`               | The maximum amount of input tokens that can be required before the transaction reverts.                                              |
 | path        | `address[] calldata` | An array of token addresses. `path.length` must be >= 2. Pools for each consecutive pair of addresses must exist and have liquidity. |
-| to          | `address`            | Recipient of ETH.                                                                                                                    |
+| to          | `address`            | Recipient of STEAMX.                                                                                                                    |
 | deadline    | `uint`               | Unix timestamp after which the transaction will revert.                                                                              |
 |             |                      |                                                                                                                                      |
 | amounts     | `uint[] memory`      | The input token amount and all subsequent output token amounts.                                                                      |
@@ -421,16 +421,16 @@ function swapExactTokensForETH(uint amountIn, uint amountOutMin, address[] calld
   returns (uint[] memory amounts);
 ```
 
-Swaps an exact amount of tokens for as much ETH as possible, along the route determined by the path. The first element of path is the input token, the last must be [WETH](#weth), and any intermediate elements represent intermediate pairs to trade through (if, for example, a direct pair does not exist).
+Swaps an exact amount of tokens for as much STEAMX as possible, along the route determined by the path. The first element of path is the input token, the last must be [WSTEAMX](#weth), and any intermediate elements represent intermediate pairs to trade through (if, for example, a direct pair does not exist).
 
-- If the to address is a smart contract, it must have the ability to receive ETH.
+- If the to address is a smart contract, it must have the ability to receive STEAMX.
 
 | Name         | Type                 |                                                                                                                                      |
 | :----------- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
 | amountIn     | `uint`               | The amount of input tokens to send.                                                                                                  |
 | amountOutMin | `uint`               | The minimum amount of output tokens that must be received for the transaction not to revert.                                         |
 | path         | `address[] calldata` | An array of token addresses. `path.length` must be >= 2. Pools for each consecutive pair of addresses must exist and have liquidity. |
-| to           | `address`            | Recipient of the ETH.                                                                                                                |
+| to           | `address`            | Recipient of the STEAMX.                                                                                                                |
 | deadline     | `uint`               | Unix timestamp after which the transaction will revert.                                                                              |
 |              |                      |                                                                                                                                      |
 | amounts      | `uint[] memory`      | The input token amount and all subsequent output token amounts.                                                                      |
@@ -444,14 +444,14 @@ function swapETHForExactTokens(uint amountOut, address[] calldata path, address 
   returns (uint[] memory amounts);
 ```
 
-Receive an exact amount of tokens for as little ETH as possible, along the route determined by the path. The first element of path must be [WETH](#weth), the last is the output token and any intermediate elements represent intermediate pairs to trade through (if, for example, a direct pair does not exist).
+Receive an exact amount of tokens for as little STEAMX as possible, along the route determined by the path. The first element of path must be [WSTEAMX](#weth), the last is the output token and any intermediate elements represent intermediate pairs to trade through (if, for example, a direct pair does not exist).
 
-- Leftover ETH, if any, is returned to `msg.sender`.
+- Leftover STEAMX, if any, is returned to `msg.sender`.
 
 | Name                      | Type                 |                                                                                                                                      |
 | :------------------------ | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
 | amountOut                 | `uint`               | The amount of tokens to receive.                                                                                                     |
-| `msg.value` (amountInMax) | `uint`               | The maximum amount of ETH that can be required before the transaction reverts.                                                       |
+| `msg.value` (amountInMax) | `uint`               | The maximum amount of STEAMX that can be required before the transaction reverts.                                                       |
 | path                      | `address[] calldata` | An array of token addresses. `path.length` must be >= 2. Pools for each consecutive pair of addresses must exist and have liquidity. |
 | to                        | `address`            | Recipient of the output tokens.                                                                                                      |
 | deadline                  | `uint`               | Unix timestamp after which the transaction will revert.                                                                              |
@@ -497,7 +497,7 @@ Identical to [swapExactETHForTokens](#swapexactethfortokens), but succeeds for t
 
 | Name                   | Type                 |                                                                                                                                      |
 | :--------------------- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
-| `msg.value` (amountIn) | `uint`               | The amount of ETH to send.                                                                                                           |
+| `msg.value` (amountIn) | `uint`               | The amount of STEAMX to send.                                                                                                           |
 | amountOutMin           | `uint`               | The minimum amount of output tokens that must be received for the transaction not to revert.                                         |
 | path                   | `address[] calldata` | An array of token addresses. `path.length` must be >= 2. Pools for each consecutive pair of addresses must exist and have liquidity. |
 | to                     | `address`            | Recipient of the output tokens.                                                                                                      |
@@ -517,14 +517,14 @@ function swapExactTokensForETHSupportingFeeOnTransferTokens(
 
 Identical to [swapExactTokensForETH](#swapexacttokensforeth), but succeeds for tokens that take a fee on transfer.
 
-- If the to address is a smart contract, it must have the ability to receive ETH.
+- If the to address is a smart contract, it must have the ability to receive STEAMX.
 
 | Name         | Type                 |                                                                                                                                      |
 | :----------- | :------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
 | amountIn     | `uint`               | The amount of input tokens to send.                                                                                                  |
 | amountOutMin | `uint`               | The minimum amount of output tokens that must be received for the transaction not to revert.                                         |
 | path         | `address[] calldata` | An array of token addresses. `path.length` must be >= 2. Pools for each consecutive pair of addresses must exist and have liquidity. |
-| to           | `address`            | Recipient of the ETH.                                                                                                                |
+| to           | `address`            | Recipient of the STEAMX.                                                                                                                |
 | deadline     | `uint`               | Unix timestamp after which the transaction will revert.                                                                              |
 
 # Interface
@@ -538,7 +538,7 @@ pragma solidity >=0.6.2;
 
 interface IUniswapV2Router01 {
     function factory() external pure returns (address);
-    function WETH() external pure returns (address);
+    function WSTEAMX() external pure returns (address);
 
     function addLiquidity(
         address tokenA,

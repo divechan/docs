@@ -1,32 +1,24 @@
 ---
-id: how-uniswap-works
-title: How Uniswap works
+id: how-rails-network-swap-works
+title: How Rails Network Swap works
 ---
 
 ![](./images/anatomy.jpg)
 
-Uniswap is an _automated liquidity protocol_ powered by a [constant product formula](../protocol-overview/glossary#constant-product-formula)
-and implemented in a system of non-upgradeable smart contracts on the [Ethereum](https://ethereum.org/) blockchain.
-It obviates the need for trusted intermediaries, prioritizing **decentralization**, **censorship resistance**,
-and **security**. Uniswap is **open-source software** licensed under the
-[GPL](https://en.wikipedia.org/wiki/GNU_General_Public_License).
+Rails Network Swap operates as an _automated liquidity protocol_, utilizing a [constant product formula](../protocol-overview/glossary#constant-product-formula) within a framework of immutable smart contracts on the Rails Network blockchain. This eliminates the necessity for trusted intermediaries, with a strong emphasis on **decentralization**, **censorship resistance**, and **security**.
 
-Each Uniswap smart contract, or pair, manages a liquidity pool made up of reserves of two [ERC-20](https://eips.ethereum.org/EIPS/eip-20) tokens.
+Each pair, or smart contract within the Rails Network Swap, governs a liquidity pool consisting of two ERC-20 token reserves.
 
-Anyone can become a liquidity provider (LP) for a pool by depositing an equivalent value of each underlying token in return for pool tokens. These tokens track pro-rata LP shares of the total reserves, and can be redeemed for the underlying assets at any time.
+To participate as a liquidity provider (STEAMXLP), one can contribute an equivalent value of each token to a pool, receiving pool tokens in return. These pool tokens represent proportional shares of the total reserves and can be exchanged back for the underlying assets at any point.
 
-![](./images/lp.jpg)
+The pairs serve as automated market makers, automatically facilitating exchanges between one token and another, maintaining the “constant product” formula, denoted as `x * y = k`. This equation ensures that the reserves' product (`k`) remains constant, with larger trades incurring progressively less favorable rates due to this invariant.
 
-Pairs act as automated market makers, standing ready to accept one token for the other as long as the “constant product” formula is preserved. This formula, most simply expressed as `x * y = k`, states that trades must not change the product (`k`) of a pair’s reserve balances (`x` and `y`). Because `k` remains unchanged from the reference frame of a trade, it is often referred to as the invariant. This formula has the desirable property that larger trades (relative to reserves) execute at exponentially worse rates than smaller ones.
+Rails Network Swap currently imposes a 0.30% fee on transactions, contributing to the pool's reserves and effectively increasing `k`, benefiting liquidity providers upon redemption of their pool tokens. Future adjustments may reduce this fee to 0.25%, allocating 0.05% for a protocol-wide levy.
 
-In practice, Uniswap applies a 0.30% fee to trades, which is added to reserves. As a result, each trade actually increases `k`. This functions as a payout to LPs, which is realized when they burn their pool tokens to withdraw their portion of total reserves. In the future, this fee may be reduced to 0.25%, with the remaining 0.05% withheld as a protocol-wide charge.
+Price discrepancies between the pair assets within the Rails Network Swap and external markets offer arbitrage opportunities, aligning the internal swap prices with the prevailing market prices.
 
-![](./images/trade.jpg)
+# Further Exploration
 
-Because the relative price of the two pair assets can only be changed through trading, divergences between the Uniswap price and external prices create arbitrage opportunities. This mechanism ensures that Uniswap prices always trend toward the market-clearing price.
+For practical insights into token swapping and the swap lifecycle, refer to [Swaps](../core-concepts/swaps). For a deeper understanding of liquidity pools, visit [Pools](../core-concepts/pools).
 
-# Further reading
-
-To see how token swaps work in practice, and to walk through the lifecycle of a swap, check out [Swaps](../core-concepts/swaps). Or, to see how liquidity pools work, see [Pools](../core-concepts/pools).
-
-Ultimately, of course, the Uniswap protocol is just smart contract code running on Ethereum. To understand how they work, head over to [Smart Contracts](../../reference/smart-contracts/factory).
+For a comprehensive understanding of the underlying technology, explore [Smart Contracts](../../reference/smart-contracts/factory) on the Rails Network.

@@ -3,250 +3,161 @@ id: queries
 title: Queries
 ---
 
-The subgraph can be queried to retrieve important information about Uniswap, pairs, tokens, transactions, users, and more. This page will provide examples for common queries.
+This section provides insights into querying the Rails Network Swap Subgraph for comprehensive data on the network, including its pairs, tokens, transactions, and user activities. Examples of typical queries are showcased below.
 
-To try these queries and run your own visit the [subgraph sandbox](https://thegraph.com/explorer/subgraph/uniswap/uniswap-v2).
+Experience these queries firsthand and explore custom ones in the [subgraph sandbox](https://graph.steamexchange.io).
 
 ### Global Data
 
-To query global data you can pass in the Uniswap Factory address and select from available fields.
+For global insights, input the Rails Network Swap Factory address and choose the relevant fields to query.
 
-#### Global Stats
+#### Global Statistics
 
-All time volume in USD, total liquidity in USD, all time transaction count.
+Query for the factory's cumulative volume in USD, overall liquidity in USD, and the total count of transactions.
 
 ```
 {
- uniswapFactory(id: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"){
-   totalVolumeUSD
-   totalLiquidityUSD
-   txCount
- }
+  uniswapFactory(id: "0xAdD2FC2189dA02E4122E6D734094bF1474516AD0"){
+    totalVolumeUSD
+    totalLiquidityUSD
+    txCount
+  }
 }
 ```
 
-#### Global Historical lookup
+#### Historical Global Data
 
-To get a snapshot of past state, use The Graph's block query feature and query at a previous block. See this post to get more information about [fetching block numbers from timestamps](https://blocklytics.org/blog/ethereum-blocks-subgraph-made-for-time-travel/). This can be used to calculate things like 24hr volume.
+To access historical data, utilize The Graph's block query capability, targeting a specific block number. For information on deriving block numbers from timestamps, refer to this [guide](https://blocklytics.org/blog/ethereum-blocks-subgraph-made-for-time-travel/), useful for computing metrics like 24-hour volume.
 
 ```
 {
- uniswapFactory(id: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", block: {number: 10291203}){
-   totalVolumeUSD
-   totalLiquidityUSD
-   txCount
- }
+  uniswapFactory(id: "0xAdD2FC2189dA02E4122E6D734094bF1474516AD0", block: {number: 100200}){
+    totalVolumeUSD
+    totalLiquidityUSD
+    txCount
+  }
 }
 ```
 
 ### Pair Data
 
-#### Pair Overview
+#### Overview of a Pair
 
-Fetch a snapshot of the current state of the pair with common values. This example fetches the DAI/WETH pair.
+To get current details of a specific pair, such as DAI/WETH, including tokens, reserves, and volume data.
 
 ```
 {
- pair(id: "0xa478c2975ab1ea89e8196811f51a7b7ade33eb11"){
-     token0 {
-       id
-       symbol
-       name
-       derivedETH
-     }
-     token1 {
-       id
-       symbol
-       name
-       derivedETH
-     }
-     reserve0
-     reserve1
-     reserveUSD
-     trackedReserveETH
-     token0Price
-     token1Price
-     volumeUSD
-     txCount
- }
+  pair(id: "0x587d7f5db5feee563d55fab612400f147cf107f0"){
+    token0 {
+      id
+      symbol
+      name
+      derivedETH
+    }
+    token1 {
+      id
+      symbol
+      name
+      derivedETH
+    }
+    reserve0
+    reserve1
+    reserveUSD
+    trackedReserveETH
+    token0Price
+    token1Price
+    volumeUSD
+    txCount
+  }
 }
 ```
 
-#### All pairs in Uniswap
+#### Liquidity Ranking
 
-The Graph limits entity return amounts to 1000 per query as of now. To get all pairs on Uniswap use a loop and graphql skip query to fetch multiple chunks of 1000 pairs. The query would look like this (where skip is some incrementing variable passed into your query).
+To find the most liquid pairs in Rails Network Swap, sort them by their USD reserves.
 
 ```
 {
- query pairs($skip: Int!) {
-   pairs(first: 1000, skip: $skip) {
-     id
-   }
- }
+  pairs(first: 1000, orderBy: reserveUSD, orderDirection: desc) {
+    id
+  }
 }
 ```
 
-#### Most liquid pairs
+#### Recent Swap Activities
 
-Order by liquidity to get the most liquid pairs in Uniswap.
+To view the latest swaps for a pair, query Swap events with the pair's address, including detailed token and amount data.
 
 ```
 {
- pairs(first: 1000, orderBy: reserveUSD, orderDirection: desc) {
-   id
- }
+  swaps(orderBy: timestamp, orderDirection: desc, where: { pair: "0x587d7f5db5feee563d55fab612400f147cf107f0" }) {
+    pair {
+      token0 {
+        symbol
+      }
+      token1 {
+        symbol
+      }
+    }
+    amount0In
+    amount0Out
+    amount1In
+    amount1Out
+    amountUSD
+    to
+  }
 }
 ```
 
-#### Recent Swaps within a Pair
+#### Daily Aggregated Pair Data
 
-Get the last 100 swaps on a pair by fetching Swap events and passing in the pair address. You'll often want token information as well.
-
-```
-{
-swaps(orderBy: timestamp, orderDirection: desc, where:
- { pair: "0xa478c2975ab1ea89e8196811f51a7b7ade33eb11" }
-) {
-     pair {
-       token0 {
-         symbol
-       }
-       token1 {
-         symbol
-       }
-     }
-     amount0In
-     amount0Out
-     amount1In
-     amount1Out
-     amountUSD
-     to
- }
-}
-```
-
-#### Pair Daily Aggregated
-
-Day data is useful for building charts and historical views around entities. To get stats about a pair in daily buckets query for day entities bounded by timestamps. This query gets the first 100 days after the given unix timestamp on the DAI/WETH pair.
+For historical analysis, query daily aggregated data of a pair to study trends and changes over time.
 
 ```
 {
- pairDayDatas(first: 100, orderBy: date, orderDirection: asc,
-   where: {
-     pairAddress: "0xa478c2975ab1ea89e8196811f51a7b7ade33eb11",
-     date_gt: 1592505859
-   }
- ) {
-     date
-     dailyVolumeToken0
-     dailyVolumeToken1
-     dailyVolumeUSD
-     reserveUSD
- }
+  pairDayDatas(first: 100, orderBy: date, orderDirection: asc, where: {
+    pairAddress: "0x587d7f5db5feee563d55fab612400f147cf107f0",
+    date_gt: 1592505859
+  }) {
+    date
+    dailyVolumeToken0
+    dailyVolumeToken1
+    dailyVolumeUSD
+    reserveUSD
+  }
 }
 ```
 
 ### Token Data
 
-Token data can be fetched using the token contract address as an ID. Token data is aggregated across all pairs the token is included in. Any token that is included in some pair in Uniswap can be queried.
+#### Token Snapshot
 
-#### Token Overview
-
-Get a snapshot of the current stats on a token in Uniswap. This query fetches current stats on DAI.
-The allPairs field gets the first 200 pairs DAI is included in sorted by liquidity in derived USD.
+To view the current metrics of a specific token within Rails Network Swap, query its contract address.
 
 ```
 {
- token(id: "0x6b175474e89094c44da98b954eedeac495271d0f"){
-   name
-   symbol
-   decimals
-   derivedETH
-   tradeVolumeUSD
-   totalLiquidity
- }
-}
-```
-
-#### All Tokens in Uniswap
-
-Similar to fetching all pairs (see above), you can query all tokens in Uniswap. Because The Graph service limits return size to 1000 entities use graphql skip query. (Note this query will not work in the graph sandbox and more resembles the structure of a query you'd pass to some graphql middleware like [Apollo](https://www.apollographql.com/)).
-
-```
-{
- query tokens($skip: Int!) {
-   tokens(first: 1000, skip: $skip) {
-     id
-     name
-     symbol
-   }
- }
-}
-```
-
-#### Token Transactions
-
-To get transactions that include a token you'll need to first fetch an array of pairs that the token is included in (this can be done with the allPairs field on the Token entity.) Once you have an array of pairs the token is included in, filter on that in the transaction lookup.
-
-This query fetches the latest 30 mints, swaps, and burns involving DAI. The allPairs array could look something like this where we include the DAI/WETH pair address and the DAI/USDC pair address.
-
-```
-allPairs = [
- "0xa478c2975ab1ea89e8196811f51a7b7ade33eb11",
- "0xae461ca67b15dc8dc81ce7615e0320da1a9ab8d5"
-]
-```
-
-```
-query($allPairs: [String!]) {
- mints(first: 30, where: { pair_in: $allPairs }, orderBy: timestamp, orderDirection: desc) {
-   transaction {
-     id
-     timestamp
-   }
-   to
-   liquidity
-   amount0
-   amount1
-   amountUSD
- }
- burns(first: 30, where: { pair_in: $allPairs }, orderBy: timestamp, orderDirection: desc) {
-   transaction {
-     id
-     timestamp
-   }
-   to
-   liquidity
-   amount0
-   amount1
-   amountUSD
- }
- swaps(first: 30, where: { pair_in: $allPairs }, orderBy: timestamp, orderDirection: desc) {
-   transaction {
-     id
-     timestamp
-   }
-   amount0In
-   amount0Out
-   amount1In
-   amount1Out
-   amountUSD
-   to
- }
-}
-```
-
-#### Token Daily Aggregated
-
-Like pair and global daily lookups, tokens have daily entities that can be queries as well. This query gets daily information for DAI. Note that you may want to sort in ascending order to receive your days from oldest to most recent in the return array.
-
-```
-{
- tokenDayDatas(orderBy: date, orderDirection: asc,
-  where: {
-    token: "0x6b175474e89094c44da98b954eedeac495271d0f"
+  token(id: "0x0000000000000000000000000000000000627800") {
+    name
+    symbol
+    decimals
+    derivedETH
+    tradeVolumeUSD
+    totalLiquidity
   }
- ) {
+}
+```
+
+#### Daily Token Metrics
+
+To obtain daily data for a token, utilize the `tokenDayDatas` query, allowing for a chronological view of token activity.
+
+``
+
+`
+{
+  tokenDayDatas(orderBy: date, orderDirection: asc, where: {
+    token: "0x0000000000000000000000000000000000627800"
+  }) {
     id
     date
     priceUSD
@@ -256,18 +167,18 @@ Like pair and global daily lookups, tokens have daily entities that can be queri
     dailyVolumeETH
     dailyVolumeToken
     dailyVolumeUSD
- }
+  }
 }
 ```
 
-### ETH Price
+### STEAMX Price Tracking
 
-You can use the Bundle entity to query current USD price of ETH in Uniswap based on a weighted average of stablecoins.
+Query the Bundle entity to ascertain the current USD value of STEAMX in Rails Network Swap, based on stablecoin pair averages.
 
 ```
 {
- bundle(id: "1" ) {
-   ethPrice
- }
+  bundle(id: "1") {
+    ethPrice
+  }
 }
 ```

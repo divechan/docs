@@ -58,7 +58,7 @@
   --ifm-color-gray-600: #8d949e;
   --ifm-color-gray-700: #606770;
   --ifm-color-gray-800: #444950;
-  --ifm-color-gray-900: #1c1e21;
+  --ifm-color-gray-900: #0c1d31;
   --ifm-color-gray-1000: var(--ifm-color-black);
   --ifm-color-emphasis-0: var(--ifm-color-gray-0);
   --ifm-color-emphasis-100: var(--ifm-color-gray-100);
@@ -215,7 +215,7 @@
   --ifm-dropdown-font-weight: var(--ifm-font-weight-semibold);
   --ifm-dropdown-link-color: var(--ifm-font-color-base);
   --ifm-dropdown-hover-background-color: var(--ifm-hover-overlay);
-  --ifm-footer-background-color: var(--ifm-color-emphasis-100);
+  --ifm-footer-background-color: #0c1d31;
   --ifm-footer-color: inherit;
   --ifm-footer-link-color: var(--ifm-color-emphasis-700);
   --ifm-footer-link-hover-color: var(--ifm-color-primary);

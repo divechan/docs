@@ -17,6 +17,7 @@
   --ifm-color-primary-light: #4e89e8;
   --ifm-color-primary-lighter: #5a91ea;
   --ifm-color-primary-lightest: #80aaef;
+  --ifm-footer-background-color: #0c1d31;
 
   --collapse-button-bg-color-dark: #2e333a;
 
@@ -29,7 +30,7 @@
   --ifm-h5-font-size: 0.875rem;
   --ifm-h6-font-size: 0.85rem;
 
-  /* --ifm-table-border-color: var(--ifm-color-emphasis-100); */
+  /* --ifm-table-border-color: #0c1d31; */
   /* --ifm-toc-border-color: none; */
   --ifm-toc-border-width: 1px;
 
@@ -53,30 +54,33 @@ html[data-theme='dark'] {
   --ifm-color-primary: white;
   --ifm-color-primary-dark: #5a91ea;
 
-  /* --ifm-color-secondary: black; */
-
-  /* --ifm-background-color: #191b1f; */
-  --ifm-navbar-background-color: #191b1f;
+  --ifm-navbar-background-color: #0c1d31;
   --ifm-global-shadow-md: 0 5px 4px rgba(255, 255, 255, 0.448);
 
+  background: #0c1d31; /* Solid background color */
+  background-image: radial-gradient(
+    50% 50% at 50% 50%, 
+    #1f4a7d 0%, 
+    #0c1d31 100%
+  );
   background-position: 0px -30vh;
   background-repeat: no-repeat;
-  background-image: radial-gradient(50% 50% at 50% 50%, rgba(33, 114, 229, 0.1) 0%, rgba(33, 36, 41, 0) 100%);
-
-  /* any other colors you wish to overwrite */
 }
+
 
 html[data-theme='light'] {
-  --ifm-color-primary: black;
-  /* --ifm-color-secondary: white; */
-  /* --ifm-background-color: #F1F1F2; */
+  --ifm-color-primary: black; 
+  --ifm-color-primary-dark: #d28a1e;
 
+  background: linear-gradient(
+    180deg, 
+    #d28a1e 0%, 
+    #FFFFFF 100%  // Lighter shade for the gradient end
+  );
   background-position: 0px -30vh;
   background-repeat: no-repeat;
-  background-image: radial-gradient(50% 50% at 50% 50%, rgba(255, 0, 122, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
-
-  /* any other colors you wish to overwrite */
 }
+
 
 .html {
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif,
@@ -150,12 +154,12 @@ h4 {
 
 html[data-theme='dark'] .navbar {
   /* background-color: none; */
-  border-bottom: var(--ifm-toc-border-color) 1px solid;
+  border-bottom: #d28a1e 1px solid;
 }
 
 html[data-theme='light'] .navbar {
   /* background-color: none; */
-  border-bottom: var(--ifm-toc-border-color) 1px solid;
+  border-bottom: #d28a1e 1px solid;
 }
 
 .container {
@@ -169,7 +173,7 @@ html[data-theme='light'] .navbar {
 }
 
 .react-toggle-track {
-  background-color: var(--ifm-color-emphasis-100) !important;
+  background-color: #0c1d31 !important;
 }
 
 .react-toggle-thumb {
@@ -193,8 +197,8 @@ html[data-theme='light'] .navbar {
 }
 
 .navbar__logo {
-  height: 20px;
-  width: 20px;
+  height: 25px;
+  width: 25px;
 }
 
 .menu__link {
@@ -202,8 +206,8 @@ html[data-theme='light'] .navbar {
   font-weight: 400;
 }
 
-html[data-theme='dark'] .navbar__logo {
-  filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(337deg) brightness(112%) contrast(104%);
+html[data-theme='light'] .navbar__logo {
+  filter: invert(27%) sepia(95%) saturate(3500%) hue-rotate(200deg) brightness(90%) contrast(100%);
 }
 
 .docusaurus-highlight-code-line {
@@ -325,10 +329,10 @@ html[data-theme='light'] .DocSearch {
   --docsearch-hit-active-color: var(--ifm-color-emphasis-700);
   --docsearch-hit-background: var(--ifm-color-white);
   --docsearch-searchbox-background: rgba(0, 0, 0, 0.05);
-  /*--docsearch-highlight-color: var(--ifm-color-emphasis-100);*/
+  /*--docsearch-highlight-color: #0c1d31;*/
 
   /* Footer */
-  --docsearch-footer-background: var(--ifm-color-white);
+  --docsearch-footer-background: #0c1d31;
   --docsearch-searchbox-shadow: none;
 }
 
@@ -344,13 +348,13 @@ html[data-theme='dark'] .DocSearch {
   /* Hit */
   --docsearch-hit-color: var(--ifm-font-color-base);
   --docsearch-hit-active-color: var(--ifm-color-emphasis-700);
-  --docsearch-hit-background: var(--ifm-color-emphasis-100);
+  --docsearch-hit-background: #0c1d31;
   --docsearch-searchbox-background: rgba(0, 0, 0, 0.2);
   /* Footer */
-  --docsearch-footer-background: var(--ifm-background-surface-color);
+  --docsearch-footer-background: #0c1d31;
   --docsearch-key-gradient: linear-gradient(-26.5deg,
       var(--ifm-color-emphasis-200) 0%,
-      var(--ifm-color-emphasis-100) 100%);
+      #0c1d31 100%);
 
   --docsearch-searchbox-shadow: inset 0 0 0 2px var(--ifm-color-emphasis-200);
 }
@@ -360,11 +364,11 @@ html[data-theme='light'] .DocSearch-Hit {
 }
 
 html[data-theme='light'] .DocSearch-Hit :focus {
-  background-color: var(--ifm-color-emphasis-100);
+  background-color: #0c1d31;
 }
 
 html[data-theme='light'] .DocSearch-Hit :hover {
-  background-color: var(--ifm-color-emphasis-100);
+  background-color: #0c1d31;
 }
 
 html[data-theme='light'] .DocSearch-Hit {
@@ -376,11 +380,11 @@ html[data-theme='dark'] .DocSearch-Hit {
 }
 
 html[data-theme='dark'] .DocSearch-Hit :focus {
-  background-color: var(--ifm-color-emphasis-100);
+  background-color: #0c1d31;
 }
 
 html[data-theme='dark'] .DocSearch-Hit :hover {
-  background-color: var(--ifm-color-emphasis-100);
+  background-color: #0c1d31;
 }
 
 html[data-theme='dark'] .DocSearch-Hit a :hover {
@@ -482,6 +486,12 @@ html[data-theme='dark'] .DocSearch-Hit a {
 
 .menu__link.V1_active.V1 {
   display: flex;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 960px) {

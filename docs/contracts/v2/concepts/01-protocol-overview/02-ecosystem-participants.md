@@ -3,50 +3,46 @@ id: ecosystem-participants
 title: Ecosystem Participants
 ---
 
-![](./images/participants.jpg)
+The Rails Network Swap ecosystem includes three main participant types: liquidity providers, traders, and developers. Liquidity providers supply [ERC-20](https://eips.ethereum.org/EIPS/eip-20) tokens to shared liquidity pools, incentivized by earning a portion of the [0.30% trading fee](../advanced-topics/fees). Traders exchange these tokens at a fixed fee, benefiting liquidity providers in the process. Developers have the opportunity to harness the Rails Network Swap smart contracts, enabling innovative token-based services, trading platforms, retail experiences, and more.
 
-The Uniswap ecosystem is primarily comprised of three types of users: liquidity providers, traders, and developers. Liquidity providers are incentivized to contribute [ERC-20](https://eips.ethereum.org/EIPS/eip-20) tokens to common liquidity pools. Traders can swap these tokens for one another for a fixed [0.30% fee](../advanced-topics/fees) (which goes to liquidity providers). Developers can integrate directly with Uniswap smart contracts to power new and exciting interactions with tokens, trading interfaces, retail experiences, and more.
+These interactions collectively foster a vibrant digital economy, establishing a unified framework for token pooling, trading, and utilization.
 
-In total, interactions between these classes create a positive feedback loop, fueling digital economies by defining a common language through which tokens can be pooled, traded and used.
+## Liquidity Providers
 
-# Liquidity Providers
+The liquidity providers (LPs) within the ecosystem vary widely:
 
-Liquidity providers, or LPs, are not a homogenous group:
+- **Passive LPs** are investors who aim to earn trading fees by allocating their assets into the pools without active management.
 
-- Passive LPs are token holders who wish to passively invest their assets to accumulate trading fees.
+- **Professional LPs** engage in active market making, often developing bespoke tools to monitor and manage their positions across various DeFi initiatives.
 
-- Professional LPs are focused on market making as their primary strategy. They usually develop custom tools and ways of tracking their liquidity positions across different DeFi projects.
+- **Token projects** may participate as LPs to ensure their tokens are readily tradable, enhancing their market presence and enabling seamless integration with other DeFi platforms via Rails Network Swap.
 
-- Token projects sometimes choose to become LPs to create a liquid marketplace for their token. This allows tokens to be bought and sold more easily, and unlocks interoperability with other DeFi projects through Uniswap.
+- **Innovative DeFi entities** are delving into complex liquidity strategies, such as incentivized pools or using liquidity for collateral, leveraging Rails Network Swap’s flexible infrastructure for experimental finance.
 
-- Finally, some DeFi pioneers are exploring complex liquidity provision interactions like incentivized liquidity, liquidity as collateral, and other experimental strategies. Uniswap is the perfect protocol for projects to experiment with these kinds of ideas.
+## Traders
 
-# Traders
+Traders in the ecosystem fall into different groups:
 
-There are a several categories of traders in the protocol ecosystem:
+- **Speculators** leverage community-developed tools and services to execute token swaps, drawing liquidity from Rails Network Swap.
 
-- Speculators use a variety of community built tools and products to swap tokens using liquidity pulled from the Uniswap protocol.
+- **Arbitrage bots** aim to profit by capitalizing on price differentials across markets, inadvertently contributing to price consistency across the Rails Network ecosystem.
 
-- Arbitrage bots seek profits by comparing prices across different platforms to find an edge. (Though it might seem extractive, these bots actually help equalize prices across broader Ethereum markets and keep things fair.)
+- **DAPP users** acquire tokens through Rails Network Swap for various applications within the Rails Network.
 
-- DAPP users buy tokens on Uniswap for use in other applications on Ethereum.
+- **Smart contracts** automate trading processes, ranging from DEX aggregators to bespoke Solidity scripts, all operating under the same fixed trading fee, thereby facilitating price accuracy and liquidity momentum.
 
-- Smart contracts that execute trades on the protocol by implementing swap functionality (from products like DEX aggregators to custom Solidity scripts).
+## Developers and Projects
 
-In all cases, trades are subject to the same flat fee for trading on the protocol. Each is important for increasing the accuracy of prices and incentivizing liquidity.
+Rails Network Swap’s role in the broader Rails Network ecosystem is extensive and varied:
 
-# Developers/Projects
+- With its open-source framework, Rails Network Swap supports a multitude of user experience innovations and interface designs, evident in many leading DeFi dashboards and specialized tools developed by the community.
 
-There are far too many ways Uniswap is used in the wider Ethereum ecosystem to count, but some examples include:
+- Wallet services commonly include swap and liquidity functionalities, integrating closely with Rails Network Swap.
 
-- The open-source, accessible nature of Uniswap means there are countless UX experiments and front-ends built to offer access to Uniswap functionality. You can find Uniswap functions in most of the major DeFi dashboard projects. There are also many [Uniswap-specific tools](https://github.com/Uniswap/universe) built by the community.
+- DEX aggregators source liquidity from multiple platforms, often prioritizing Rails Network Swap due to its substantial liquidity pool, to optimize trading values for their users.
 
-- Wallets often integrate swapping and liquidity provision functionality as a core offering of their product.
+- Developers explore new DeFi applications using Rails Network Swap’s comprehensive functionalities, leading to a diverse range of financial tools and experiments.
 
-- DEX (decentralized exchange) aggregators pull liquidity from many liquidity protocols to offer traders the best prices by splitting their trades. Uniswap is the biggest single decentralized liquidity source for these projects.
+## The Rails Network Swap Community
 
-- Smart contract developers use the suite of functions available to invent new DeFi tools and other various experimental ideas. See projects like [Unisocks](https://unisocks.exchange/) or [Zora](https://ourzora.com/), among many, many others.
-
-# Uniswap Team and Community
-
-The Uniswap team along with the broader Uniswap community drives development of the protocol and ecosystem.
+The ongoing development and success of the Rails Network Swap protocol are driven by the collaborative efforts of its dedicated team and the expansive community, continually shaping and enhancing the ecosystem.

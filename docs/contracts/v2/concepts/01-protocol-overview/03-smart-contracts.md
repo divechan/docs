@@ -3,6 +3,8 @@ id: smart-contracts
 title: Smart contracts
 ---
 
+*Rails Network utilizes the tried and tested Uniswap V2 libraries. Below is information about the Uniswap V2 Smart Contracts directly from Uniswap:*
+
 Uniswap V2 is a binary smart contract system. [Core](#core) contracts provide fundamental safety guarantees for all parties interacting with Uniswap. [Periphery](#periphery) contracts interact with one or more core contracts but are not themselves part of the core.
 
 # Core
@@ -51,11 +53,11 @@ The following sections describe some of the notable design decisions made in Uni
 
 Typically, smart contracts which need tokens to perform some functionality require would-be interactors to first make an approval on the token contract, then call a function that in turn calls transferFrom on the token contract. This is _not_ how V2 pairs accept tokens. Instead, pairs check their token balances at the _end_ of every interaction. Then, at the beginning of the _next_ interaction, current balances are differenced against the stored values to determine the amount of tokens that were sent by the current interactor. See the <a href='/whitepaper.pdf' target='_blank' rel='noopener noreferrer'>whitepaper</a> for a justification of why this is the case, but the takeaway is that **tokens must be transferred to the pair before calling any token-requiring method** (the one exception to this rule is [Flash Swaps](../core-concepts/flash-swaps).
 
-## WETH
+## WSTEAMX
 
-Unlike Uniswap V1 pools, V2 pairs do not support ETH directly, so ETH⇄ERC-20 pairs must be emulated with WETH. The motivation behind this choice was to remove ETH-specific code in the core, resulting in a leaner codebase. End users can be kept fully ignorant of this implementation detail, however, by simply wrapping/unwrapping ETH in the periphery.
+Pairs do not support STEAMX directly, so STEAMX⇄Wrapped pairs must be emulated with WSTEAMX. The motivation behind this choice was to remove STEAMX-specific code in the core, resulting in a leaner codebase. End users can be kept fully ignorant of this implementation detail, however, by simply wrapping/unwrapping STEAMX in the periphery.
 
-The router fully supports interacting with any WETH pair via ETH.
+The router fully supports interacting with any WSTEAMX pair via STEAMX.
 
 ## Minimum Liquidity
 

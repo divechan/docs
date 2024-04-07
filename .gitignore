@@ -9,6 +9,8 @@ build/
 yarn.lock
 i18n/*
 .docusaurus/*
+node_modules
+build
 
 artifacts/
 cache/

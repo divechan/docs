@@ -4,13 +4,13 @@ title: Glossary
 sidebar_position: 6
 ---
 
-## Automated Market Maker
+## Automated Market Maker (AMM)
 
-An automated market maker is a smart contract on Ethereum that holds liquidity reserves. Users can trade against these reserves at prices determined by a fixed formula. Anyone may contribute liquidity to these smart contracts, earning pro-rata trading fees in return.
+An automated market maker is a smart contract on the Rails Network that holds liquidity reserves. Users can trade against these reserves at prices determined by a fixed formula. Anyone may contribute liquidity to these smart contracts, earning pro-rata trading fees in return.
 
 ## Asset
 
-While a digital asset can take many forms, the Uniswap Protocol supports ERC-20 token pairs, and represents a position in the form of an NFT (ERC-721).
+While a digital asset can take many forms, the Rails Network Swap Protocol supports ERC-20 token pairs and represents a position in the form of an NFT (ERC-721).
 
 ## Concentrated Liquidity
 
@@ -18,15 +18,15 @@ Liquidity that is allocated within a determined price range.
 
 ## Constant Product Formula
 
-The automated market making algorithm used by Uniswap. In v1 and v2, this was x\*y=k.
+The automated market making algorithm used by the Rails Network Swap. In versions 1 and 2, this was represented by x * y = k.
 
 ## Core
 
-Smart contracts that are considered foundational, and are essential for Uniswap to exist. Upgrading to a new version of core would require deploying an entirely new set of smart contracts on Ethereum and would be considered a new version of the Uniswap Protocol.
+Smart contracts that are considered foundational and are essential for the Rails Network Swap to exist. Upgrading to a new version of core would require deploying an entirely new set of smart contracts on the Rails Network and would be considered a new version of the Rails Network Swap Protocol.
 
 ## ERC20
 
-ERC20 tokens are fungible tokens on Ethereum. Uniswap supports all standard ERC20 implementations.
+ERC20 tokens are fungible tokens on the Rails Network. Rails Network Swap supports all standard ERC20 implementations.
 
 ## Factory
 
@@ -38,7 +38,7 @@ A trade that uses the tokens purchased before paying for them.
 
 ## Invariant
 
-The “k” value in the constant product formula X\*Y=K
+The “k” value in the constant product formula X * Y = K.
 
 ## Liquidity Provider / "LP"
 
@@ -46,23 +46,23 @@ A liquidity provider is someone who deposits ERC20 tokens into a given liquidity
 
 ## Liquidity
 
-Digital assets that are stored in a Uniswap pool contract, and are able to be traded against by traders.
+Digital assets stored in a Rails Network Swap pool contract and tradable by traders.
 
 ## Mid Price
 
-The price between the available buy and sell prices. In Uniswap V1 and V2, this is the ratio of the two ERC20 token reserves. In V3, this is the ratio of the two ERC20 token reserves available within the current active tick.
+The price between the available buy and sell prices. In Rails Network Swap V1 and V2, this is the ratio of the two ERC20 token reserves. In V3, this is the ratio of the two ERC20 token reserves available within the current active tick.
 
 ## Observation
 
-An instance of historical price and liquidity data of a given pair.
+An instance of historical price and liquidity data for a given pair.
 
 ## Pair
 
-A smart contract deployed from a Uniswap V1 or V2 factory contract that enables trading between two ERC20 tokens. Pair contracts are now called Pools in V3.
+A smart contract deployed from a Rails Network Swap V1 or V2 factory contract that enables trading between two ERC20 tokens. Pair contracts are now called Pools in V3.
 
 ## Periphery
 
-External smart contracts that are useful, but not required for Uniswap to exist. New periphery contracts can always be deployed without migrating liquidity.
+External smart contracts that are useful but not required for Rails Network Swap to exist. New periphery contracts can always be deployed without migrating liquidity.
 
 ## Pool
 
@@ -70,7 +70,7 @@ A contract deployed by the V3 factory that pairs two ERC-20 assets. Different po
 
 ## Position
 
-An instance of liquidity defined by upper and lower tick. And the amount of liquidity contained therein.
+An instance of liquidity defined by upper and lower tick and the amount of liquidity contained therein.
 
 ## Price Impact
 
@@ -78,7 +78,7 @@ The difference between the mid-price and the execution price of a trade.
 
 ## Protocol Fees
 
-Fees that are rewarded to the protocol itself, rather than to liquidity providers.
+Fees rewarded to the protocol itself, rather than to liquidity providers.
 
 ## Range
 
@@ -86,7 +86,7 @@ Any interval between two ticks of any distance.
 
 ## Range Order
 
-An approximation of a limit order, in which a single asset is provided as liquidity across a specified range, and is continuously swapped to the destination address as the spot price crosses the range.
+An approximation of a limit order, in which a single asset is provided as liquidity across a specified range and is continuously swapped to the destination address as the spot price crosses the range.
 
 ## Reserves
 
@@ -102,7 +102,7 @@ The current price of a token relative to another within a given pair.
 
 ## Swap Fees
 
-The fees collected upon swapping which are rewarded to liquidity providers.
+Fees collected upon swapping which are rewarded to liquidity providers.
 
 ## Tick Interval
 

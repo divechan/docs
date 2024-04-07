@@ -5,16 +5,16 @@ title: Glossary
 
 ### Automated market maker
 
-An automated market maker is a smart contract on Ethereum that holds on-chain liquidity reserves. Users can trade against these reserves at prices set by an automated market making formula.
+An automated market maker is a smart contract on Rails Network that holds on-chain liquidity reserves. Users can trade against these reserves at prices set by an automated market making formula.
 
 ### Constant product formula
 
-The automated market making algorithm used by Uniswap.
+The automated market making algorithm used by Rails Network Swap.
 See [x\*y=k](#x--y--k).
 
 ### ERC20
 
-ERC20 tokens are fungible tokens on Ethereum. Uniswap supports all standard ERC20 implementations.
+ERC20 tokens are fungible tokens on Rails Network. Rails Network Swap supports all standard ERC20 implementations.
 
 ### Factory
 
@@ -22,7 +22,7 @@ A smart contract that deploys a unique smart contract for any ERC20/ERC20 tradin
 
 ### Pair
 
-A smart contract deployed from the Uniswap V2 Factory that enables trading between two ERC20 tokens.
+A smart contract deployed from the Rails Network Swap V2 Factory that enables trading between two ERC20 tokens.
 
 ### Pool
 
@@ -34,7 +34,7 @@ A liquidity provider is someone who deposits an equivalent value of two ERC20 to
 
 ### Mid price
 
-The price between what users can buy and sell tokens at a given moment. In Uniswap this is the ratio of the two ERC20 token reserves.
+The price between what users can buy and sell tokens at a given moment. In Rails Network Swap this is the ratio of the two ERC20 token reserves.
 
 ### Price impact
 
@@ -46,11 +46,11 @@ The amount the price moves in a trading pair between when a transaction is submi
 
 ### Core
 
-Smart contracts that are essential for Uniswap to exist. Upgrading to a new version of core would require a liquidity migration.
+Smart contracts that are essential for Rails Network Swap to exist. Upgrading to a new version of core would require a liquidity migration.
 
 ### Periphery
 
-External smart contracts that are useful, but not required for Uniswap to exist. New periphery contracts can always be deployed without migrating liquidity.
+External smart contracts that are useful, but not required for Rails Network Swap to exist. New periphery contracts can always be deployed without migrating liquidity.
 
 ### Flash swap
 

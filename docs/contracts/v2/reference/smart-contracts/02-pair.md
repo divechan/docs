@@ -3,7 +3,7 @@ id: pair
 title: Pair
 ---
 
-This documentation covers Uniswap-specific functionality. For ERC-20 functionality, see [Pair (ERC-20)](../smart-contracts/pair-erc-20).
+This documentation covers Rails Network specific functionality. For ERC-20 functionality, see [Pair (ERC-20)](../smart-contracts/pair-erc-20).
 
 # Code
 
@@ -158,15 +158,11 @@ Swaps tokens. For regular swaps, `data.length` must be `0`. Also see [Flash Swap
 function skim(address to) external;
 ```
 
-See the <a href='/whitepaper.pdf' target='_blank' rel='noopener noreferrer'>whitepaper</a>.
-
 ## sync
 
 ```solidity
 function sync() external;
 ```
-
-See the <a href='/whitepaper.pdf' target='_blank' rel='noopener noreferrer'>whitepaper</a>.
 
 - Emits [Sync](#sync).
 

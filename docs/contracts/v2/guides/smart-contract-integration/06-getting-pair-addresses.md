@@ -2,6 +2,7 @@
 id: getting-pair-addresses
 title: Pair Addresses
 ---
+*Rails Network utilizes the tried and tested Uniswap V2 libraries. Below is information about the Uniswap V2 Smart Contracts directly from Uniswap:*
 
 # getPair
 

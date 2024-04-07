@@ -1,44 +1,40 @@
 ---
 id: swaps
 title: Swaps
-subtitle: Learn about the core functionality of the uniswap protocol. Token Swaps.
+subtitle: Learn about the core functionality of the Rails Network Swap protocol. Token Swaps.
 ---
 
-![](./images/trade.jpg)
+# Overview
 
-# Introduction
+In the Rails Network Swap, token swapping facilitates the exchange of one ERC-20 token for another in a straightforward manner.
 
-Token swaps in Uniswap are a simple way to trade one ERC-20 token for another.
+Users engage in swaps by selecting their desired input and output tokens, inputting the amount for exchange, and the system automatically determines the resultant output token quantity. The swap is completed with a single click, instantly depositing the new token into the user’s wallet.
 
-For end-users, swapping is intuitive: a user picks an input token and an output token. They specify an input amount, and the protocol calculates how much of the output token they’ll receive. They then execute the swap with one click, receiving the output token in their wallet immediately.
+This document delves into the swap process on a technical level, providing insights into the operational mechanics of the Rails Network Swap.
 
-In this guide, we’ll look at what happens during a swap at the protocol level in order to gain a deeper understanding of how Uniswap works.
+Unlike conventional trading platforms, Rails Network Swap operates without an order book, instead relying on an automated market maker model to instantly quote exchange rates and potential slippage.
 
-Swaps in Uniswap are different from trades on traditional platforms. Uniswap does not use an order book to represent liquidity or determine prices. Uniswap uses an automated market maker mechanism to provide instant feedback on rates and slippage.
+As outlined in the [Protocol Overview](../protocol-overview/how-Rails Network Swap-works), Rails Network Swap's functionality is built around liquidity pools, which are smart contracts maintaining the balances of two distinct tokens and regulating their exchange based on the [constant product formula](../protocol-overview/glossary#constant-product-formula). This formula ensures the maintenance of balance in the liquidity pool, allowing withdrawals of one token to necessitate proportional deposits of the other.
 
-As we learned in [Protocol Overview](../protocol-overview/how-uniswap-works), each pair on Uniswap is actually underpinned by a liquidity pool. Liquidity pools are smart contracts that hold balances of two unique tokens and enforces rules around depositing and withdrawing them.
+## Swap Mechanics
 
-This rule is the [constant product formula](../protocol-overview/glossary#constant-product-formula). When either token is withdrawn (purchased), a proportional amount of the other must be deposited (sold), in order to maintain the constant.
-
-## Anatomy of a swap
-
-At the most basic level, all swaps in Uniswap V2 happen within a single function, aptly named `swap`:
+Fundamentally, swaps in Rails Network Swap occur through a `swap` function:
 
 ```solidity
 function swap(uint amount0Out, uint amount1Out, address to, bytes calldata data);
 ```
 
-# Receiving tokens
+# Token Receipt
 
-As is probably clear from the function signature, Uniswap requires `swap` callers to _specify how many output tokens they would like to receive_ via the `amount{0,1}Out` parameters, which correspond to the desired amount of `token{0,1}`.
+The `swap` function necessitates that users define the amount of output tokens they want, indicated by `amount{0,1}Out`, which represents the respective `token{0,1}` amount.
 
-# Sending Tokens
+# Token Transfer
 
-What’s not as clear is how Uniswap _receives_ tokens as payment for the swap. Typically, smart contracts which need tokens to perform some functionality require callers to first make an approval on the token contract, then call a function that in turn calls transferFrom on the token contract. This is _not_ how V2 pairs accept tokens. Instead, pairs check their token balances at the _end_ of every interaction. Then, at the beginning of the _next_ interaction, current balances are differenced against the stored values to determine the amount of tokens that were sent by the current interactor. See the <a href='/whitepaper.pdf' rel='noopener noreferrer'>whitepaper</a> for a justification of why this is the case.
+What might not be immediately evident is the mechanism through which Rails Network Swap acquires tokens for the swap. Unlike some smart contracts that require an approval step followed by a `transferFrom` call, Rails Network Swap checks the token balances post each transaction. It then compares the current balances with the previous ones at the start of a new transaction to ascertain the received token amount. Further details and rationale are provided in the [whitepaper](/whitepaper.pdf).
 
-The takeaway is that **tokens must be transferred to pairs before swap is called** (the one exception to this rule is [Flash Swaps](flash-swaps)). This means that to safely use the `swap` function, it must be called from _another smart contract_. The alternative (transferring tokens to the pair and then calling `swap`) is not safe to do non-atomically because the sent tokens would be vulnerable to arbitrage.
+It is important that **tokens are transferred to the pair before calling the `swap` function**. This ensures safe operation, except in the case of [Flash Swaps](flash-swaps), necessitating the `swap` function be executed from a separate smart contract to prevent risks associated with non-atomic transfers and potential arbitrage.
 
-# Developer resources
+# For Developers
 
-- To see how to implement token swaps in a smart contract read [Trading from a smart contract](../../guides/smart-contract-integration/trading-from-a-smart-contract).
-- To see how to execute a swap from an interface read [Trading (SDK)](../../../../sdk/2.0.0/guides/trading)
+- For implementation details on integrating token swaps within a smart contract, refer to [Trading from a smart contract](../../guides/smart-contract-integration/trading-from-a-smart-contract).
+- For guidance on executing a swap via an interface, see [Trading (SDK)](../../../../sdk/2.0.0/guides/trading).

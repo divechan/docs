@@ -9,7 +9,7 @@ export default function SearchBarWithAnalytics(props) {
       <TraceEvent events={[BrowserEvent.onClick]} name={SharedEventName.SEARCH_BAR_CLICKED}>
         {/* Required for onClick to register */}
         <div>
-          <OriginalSearchBar {...props} />
+          
         </div>
       </TraceEvent>
     </>

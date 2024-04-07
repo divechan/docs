@@ -1,15 +1,17 @@
 ---
 id: supporting-meta-transactions
-title: Supporting meta transactions
+title: Supporting Meta Transactions
 ---
 
-All Uniswap V2 pool tokens support meta-transaction approvals via the [permit](../../reference/smart-contracts/pair-erc-20#permit) function. This obviates the need for a blocking approve transaction before programmatic interactions with pool tokens can occur.
+Rails Network Swap pool tokens facilitate meta-transaction approvals through the `permit` function, eliminating the requirement for a preliminary approve transaction for programmatic operations with the tokens.
 
 # ERC-712
 
-In vanilla ERC-20 token contracts, owners may only register approvals by directly calling a function which uses `msg.sender` to permission itself. With meta-approvals, ownership and permissioning are derived from a signature passed into the function by the caller (sometimes referred to as the relayer). Because signing data with Ethereum private keys can be a tricky endeavor, Uniswap V2 relies on [ERC-712](https://eips.ethereum.org/EIPS/eip-712), a signature standard with widespread community support, to ensure user safety and wallet compatibility.
+Typical ERC-20 tokens necessitate that owners explicitly approve transactions through a function call that recognizes `msg.sender` as the approver. Meta-transaction approvals, however, are established through a signature provided to the function by the entity initiating the call, often known as the relayer. To handle the complexities of signing with Ethereum private keys, Rails Network Swap employs [ERC-712](https://eips.ethereum.org/EIPS/eip-712), a widely recognized signature standard, ensuring compatibility and security across different wallets.
 
 ## Domain Separator
+
+The domain separator is defined as follows:
 
 ```solidity
 keccak256(
@@ -23,12 +25,15 @@ keccak256(
 );
 ```
 
-- `name` is always `Uniswap V2`, see [name](../../reference/smart-contracts/pair-erc-20#name).
-- `chainId` is determined from the [ERC-1344](https://ethereum-magicians.org/t/eip-1344-add-chain-id-opcode/1131) `chainid` opcode.
-- `address(this)` is the address of the pair, see [Pair Addresses](../../../../sdk/v2/guides/getting-pair-addresses).
+- `name` corresponds to `Uniswap V2`, detailed in [name](../../reference/smart-contracts/pair-erc-20#name).
+- `chainId` is 6278 for Mainnet and 24116 for Testnet
+- `address(this)` refers to the contract address of the pair, as outlined in [Pair Addresses](../../../../sdk/v2/guides/getting-pair-addresses).
 
 ## Permit Typehash
 
+The permit typehash is calculated with the following code:
+
 ```solidity
-keccak256('Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)');`
+keccak256('Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)');
 ```
+This structure facilitates secure and efficient permissioning for meta-transactions within the Rails Network Swap ecosystem.

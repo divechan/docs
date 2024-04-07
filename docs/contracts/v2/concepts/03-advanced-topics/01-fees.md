@@ -3,26 +3,22 @@ id: fees
 title: Fees
 ---
 
-## Liquidity provider fees
+## Fees for Liquidity Providers
 
-There is a **0.3%** fee for swapping tokens. **This fee is split by liquidity providers proportional to their contribution to liquidity reserves.**
+A swapping fee of **0.3%** is charged for token exchanges, which is distributed among the liquidity providers according to their liquidity contribution. 
 
-Swapping fees are immediately deposited into liquidity reserves. This increases the value of liquidity tokens, functioning as a payout to all liquidity providers proportional to their share of the pool. Fees are collected by burning liquidity tokens to remove a proportional share of the underlying reserves.
+This fee is instantly added to the liquidity pool, enhancing the value of the liquidity tokens. It serves as a reward for liquidity providers, proportional to their pool ownership. The collection of these fees is facilitated through the burning of liquidity tokens, thereby withdrawing a corresponding portion of the pool's reserves.
 
-Since fees are added to liquidity pools, the invariant increases at the end of every trade. Within a single transaction, the invariant represents `token0_pool / token1_pool` at the end of the previous transaction.
+As fees contribute to the liquidity pools, the pool's invariant, or the product of the pools' reserves, increases after each trade, representing the ratio of `token0_pool / token1_pool` from the conclusion of the preceding trade.
 
-There are many community-developed tools to determine returns. You can also read more in the docs about how to think about [LP returns](../advanced-topics/understanding-returns).
+For assessing returns, numerous community-built tools are available, and further insights can be found in the [LP returns](../advanced-topics/understanding-returns) section of the documentation.
 
 ## Protocol Fees
 
-At the moment there are no protocol fees. However, it is possible for a 0.05% fee to be turned on in the future.
+Currently, the protocol imposes no fees, but a future implementation of a 0.05% fee per trade is conceivable.
 
-More information about a potential future protocol fee can be found [here](https://uniswap.org/blog/uniswap-v2/#path-to-sustainability).
+## Calculation of Protocol Charges
 
-## Protocol Charge Calculation
+A potential future scenario involves a protocol-level fee of 0.05% per trade, which would constitute one-sixth (approximately 16.67%) of the 0.30% swapping fee. This fee would be applicable if the [feeTo](../../reference/smart-contracts/factory/#feeto) address is set to a value other than `address(0)` (`0x0000000000000000000000000000000000000000`), signifying that `feeTo` is designated to receive this fee.
 
-In the future, it is possible that a protocol-wide charge of 0.05% per trade will take effect. This represents ⅙th (16.6̅%) of the 0.30% fee. The fee is in effect if [feeTo](../../reference/smart-contracts/factory/#feeto) is not `address(0)` (`0x0000000000000000000000000000000000000000`), indicating that feeTo is the recipient of the charge.
-
-This amount would not affect the fee paid by traders, but would affect the amount received by liquidity providers.
-
-Rather than calculating this charge on swaps, which would significantly increase gas costs for all users, the charge is instead calculated when liquidity is added or removed. See the <a href='/whitepaper.pdf' target='_blank' rel='noopener noreferrer'>whitepaper</a> for more details.
+While this would not alter the trading fees for users, it would impact the distribution to liquidity providers.

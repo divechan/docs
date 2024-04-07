@@ -3,57 +3,51 @@ id: trading-from-a-smart-contract
 title: Implement a Swap
 ---
 
-When trading from a smart contract, the most important thing to keep in mind is that access to an external price source is _required_. Without this, trades can be frontrun for considerable loss.
+Executing trades through a smart contract necessitates the use of an external price feed to prevent potential front-running and consequent losses.
 
-_Read [safety considerations](#safety-considerations) for more._
+# Router Utilization
 
-# Using the Router
+To execute token swaps securely, employing the [router](../../reference/smart-contracts/router-02) is recommended, as it offers multiple methods for conducting safe exchanges between various assets. Each method corresponds to a specific swapping scenario, either for a precise amount of STEAMX/tokens or vice versa.
 
-The easiest way to safely swap tokens is to use the [router](../../reference/smart-contracts/router-02), which provides a variety of methods to safely swap to and from different assets. You'll notice that there is a function for each permutation of swapping to/from an exact amount of ETH/tokens.
+Prior to executing a swap, it’s crucial to determine the safety parameters, like the minimum amount to receive on selling or the maximum payable amount for a purchase, using an external price feed.
 
-First you must use an external price source to calculate the safety parameters for the function you'd like to call. This is either a minimum amount received when selling an exact input or the maximum amount you are willing to pay when a buying an exact output amount
+Moreover, ensuring the contract has sufficient STEAMX/tokens for the swap and has authorized the router to access these tokens is essential.
 
-It is also important to ensure that your contract controls enough ETH/tokens to make the swap, and has granted approval to the router to withdraw this many tokens.
+_For a detailed discussion on price determination, refer to the [Pricing](../../concepts/advanced-topics/pricing#pricing-trades) section._
 
-_Check out the [Pricing](../../concepts/advanced-topics/pricing#pricing-trades) page for a more in depth discussion on getting prices._
+# Execution Example
 
-# Example
-
-Imagine you want to swap 50 DAI for as much ETH as possible from your smart contract.
+Consider swapping 50 USDC for the maximum possible STEAMX through your smart contract.
 
 ## transferFrom
 
-Before swapping, our smart contracts needs to be in control of 50 DAI. The easiest way to accomplish this is by calling `transferFrom` on DAI with the owner set to `msg.sender`:
+To initiate, the contract must hold 50 USDC, achievable by invoking `transferFrom` on USDC with `msg.sender` as the owner:
 
 ```solidity
-uint amountIn = 50 * 10 ** DAI.decimals();
-require(DAI.transferFrom(msg.sender, address(this), amountIn), 'transferFrom failed.');
+uint amountIn = 50 * 10 ** USDC.decimals();
+require(USDC.transferFrom(msg.sender, address(this), amountIn), 'Transfer from failed.');
 ```
 
 ## approve
 
-Now that our contract owns 50 DAI, we need to approve to the [router](../../reference/smart-contracts/router-02) to withdraw this DAI:
+Post acquisition of 50 USDC, authorization for the [router](../../reference/smart-contracts/router-02) to use this USDC is required:
 
 ```solidity
-require(DAI.approve(address(UniswapV2Router02), amountIn), 'approve failed.');
+require(USDC.approve(address(UniswapV2Router02), amountIn), 'Approval failed.');
 ```
 
 ## swapExactTokensForETH
 
-Now we're ready to swap:
+Subsequently, you can proceed with the swap:
 
 ```solidity
-// amountOutMin must be retrieved from an oracle of some kind
+// amountOutMin must be ascertained via an oracle
 address[] memory path = new address[](2);
-path[0] = address(DAI);
+path[0] = address(USDC);
 path[1] = UniswapV2Router02.WETH();
 UniswapV2Router02.swapExactTokensForETH(amountIn, amountOutMin, path, msg.sender, block.timestamp);
 ```
 
-# Safety Considerations
+# Safety Measures
 
-Because Ethereum transactions occur in an adversarial environment, smart contracts that do not perform safety checks _can be exploited for profit_. If a smart contract assumes that the current price on Uniswap is a "fair" price without performing safety checks, _it is vulnerable to manipulation_. A bad actor could e.g. easily insert transactions before and after the swap (a "sandwich" attack) causing the smart contract to trade at a much worse price, profit from this at the trader's expense, and then return the contracts to their original state. (One important caveat is that these types of attacks are mitigated by trading in extremely liquid pools, and/or at low values.)
-
-The best way to protect against these attacks is to use an external price feed or "price oracle". The best "oracle" is simply _traders' off-chain observation of the current price_, which can be passed into the trade as a safety check. This strategy is best for situations _where users initiate trades on their own behalf_.
-
-However, when an off-chain price can't be used, an on-chain oracle should be used instead. Determining the best oracle for a given situation is a not part of this guide, but for more details on the Uniswap V2 approach to oracles, see [Oracles](../../concepts/core-concepts/oracles).
+In the adversarial setting of the Rails Network, contracts lacking robust safety mechanisms are prone to exploitation. Assuming that the prevailing swap price on Rails Network Swap is equitable without safety validations exposes the contract to potential market manipulations. Malicious entities can perform 'sandwich' attacks, where they manipulate the market price before and after a contract’s trade, leading to unfavorable trading conditions and profiteering at the trader's expense.
